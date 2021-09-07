@@ -126,5 +126,4 @@ nb-configuration.xml
 /.phpunit.*.cache
 
 #setting 
-app/Config/App.php
-app/Config/Database.php
+app/Config/
