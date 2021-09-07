@@ -33,8 +33,8 @@ class Database extends Config
 	public $default = [
 		'DSN'      => '',
 		'hostname' => 'localhost',
-		'username' => 'u5593781_siap',
-		'password' => 'xb1b7K1fLnKJ',
+		'username' => 'root',
+		'password' => '',
 		'database' => 'siap',
 		'DBDriver' => 'MySQLi',
 		'DBPrefix' => '',
