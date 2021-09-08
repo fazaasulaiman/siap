@@ -201,7 +201,7 @@
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             },
-            type: "get",
+            type: "post",
             data: $('#update').serialize(),
             dataType: "JSON",
             success: function(data) {

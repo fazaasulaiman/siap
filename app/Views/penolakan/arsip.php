@@ -153,12 +153,13 @@
     $(function() {
         <?php if ($_SESSION['level'] != 'lainnya') { ?>
             $('.table').find('tr').each(function(n) {
-                $(this).find('th').eq(n).after('<th>aksi</th>');
+
+                $(this).find('th').eq(9).after('<th>aksi</th>');
             });
             obj.push({
             data: 'aksi',
             name: 'aksi'
-        })
+            })
         <?php } ?>
         var customFilter = false;
         $('#filter').click(function() {

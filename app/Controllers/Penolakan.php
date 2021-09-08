@@ -56,6 +56,7 @@ class Penolakan extends BaseController
             $dataTable->addColumn('aksi', function ($query) {
                 $html = '<div class="btn-group"><a class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown" href="#"><i class="fa fa-cog"></i> <span class="caret"></span></a><ul role="menu" class="dropdown-menu pull-right">';
                 if ($this->session->get('level') == 'admin') {
+                    $html .= '<li role="presentation"><a role="menuitem" data-toggle="modal" tabindex="-1"  onclick="hapus(' . "'" . $query->id . "'" . ',' . "'" . $query->nama . "'" . ')" title="Hapus"><i class="fa fa-times"></i> Hapus</a></li>';
                     $html .= '<li role="presentation"><a role="menuitem" tabindex="-1"  onclick="upload(' . "'" . $query->id . "'" . ',' . "'" . $query->nama . "'" . ')"  data-toggle="modal" href="#edit" title="upload"><i class="fa fa-cloud-upload"></i>Bapen TAK</a></li>';
                 }
                 if ($this->session->get('level') == 'seksi' && $this->session->get('username') == $query->username) {

@@ -82,6 +82,7 @@ class Register extends BaseController
     }
     public function edit($id)
     {
+       
         $user = new UsersModel();
         if ($this->request->getMethod() == 'post') {
             $data = $this->request->getPost();
