@@ -2,7 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Models\UsersModel;
+use App\Models\PenolakanModel;
+use PDO;
 
 class Home extends BaseController
 {
@@ -10,6 +11,7 @@ class Home extends BaseController
     {
         helper('form');
         $this->form_validation = \Config\Services::validation();
+        $this->db      = \Config\Database::connect();
     }
     public function index()
     {
@@ -34,5 +36,41 @@ class Home extends BaseController
     {
         session()->destroy();
         return redirect()->to('/login');
+    }
+    public function grafik()
+    {
+        $data = $this->request->getGet();
+        $builder =  $this->db->table('penolakan');
+        if (!$this->form_validation->run($data, 'grafik')) {
+
+            echo json_encode(array('status' => false, 'ket' => $this->form_validation->getErrors()));
+            exit();
+        }
+        $data['mulai'] = date("Y-m-d", strtotime($data['mulai']));
+        $data['selesai'] = date("Y-m-d", strtotime($data['selesai']));
+        if ($data['jenis'] != 'penolakan') {
+            $type='pie';
+            $title='grafik '.$data['jenis'];
+            $builder->select("{$data['jenis']} , count({$data['jenis']}) as jumlah");
+            
+            $builder->where("DATE(tglSurat) BETWEEN '{$data['mulai']}' AND '{$data['selesai']}'");
+            $builder->groupBy($data['jenis']);
+            $query = $builder->get();
+            if(empty($query->getResult())){
+                echo json_encode(array('status' => false, 'ket' => 'Data Tidak Ditemukan'));
+                exit();
+            } 
+            $results = array();
+            foreach($query->getResult() as $row){
+                $results['label'][]= $row->{$data['jenis']};
+                $results['value'][]= $row->jumlah;
+                $results['color'][]= randomColour();
+                //$row->color = randomColour();
+            }
+            echo json_encode(array('status' => true, 'data' => $results, 'type' => $type,'title' => $title));
+            exit();
+        }
+        var_dump($data);
+        exit();
     }
 }
