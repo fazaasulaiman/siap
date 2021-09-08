@@ -80,19 +80,27 @@
               <ul class="nav side-menu">
                 <li><a href="index.html"><i class="fa fa-line-chart" aria-hidden="true"></i>
                     Dashboard</a></li>
+
                 <li><a><i class="fa fa-user"></i> Penolakan <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                    <li><a href="form.html">Input</a></li>
-                    <li><a href="form_advanced.html">Arsip</a></li>
+                    <?php
+                    if (session('level') == 'seksi') {
+                    ?>
+                    <li><a href="<?php echo base_url('/penolakan/input'); ?>">Input</a></li>
+                    <?php } ?>
+                    <li><a href="<?php echo base_url('/penolakan/arsip'); ?>">Arsip</a></li>
                   </ul>
                 </li>
-                <li><a><i class="fa fa fa-users"></i> User <span class="fa fa-chevron-down"></span></a>
-                  <ul class="nav child_menu">
-                    <li><a href="general_elements.html">Seksi</a></li>
-                    <li><a href="media_gallery.html">Pimpinan</a></li>
-                  </ul>
-                </li>
-
+                <?php
+                if (session('level') == 'admin') {
+                ?>
+                  <li><a><i class="fa fa fa-users"></i> User <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="<?php echo base_url('/register'); ?>">Seksi</a></li>
+                      <li><a href="<?php echo base_url('/register/pimpinan'); ?>">Pimpinan</a></li>
+                    </ul>
+                  </li>
+                <?php } ?>
             </div>
 
           </div>
