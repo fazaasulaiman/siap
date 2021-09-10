@@ -48,11 +48,37 @@ class Home extends BaseController
         }
         $data['mulai'] = date("Y-m-d", strtotime($data['mulai']));
         $data['selesai'] = date("Y-m-d", strtotime($data['selesai']));
-        if ($data['jenis'] != 'penolakan') {
+        if ($data['jenis'] != 'tglSurat') {
             $type='pie';
             $title='grafik '.$data['jenis'];
-            $builder->select("{$data['jenis']} , count({$data['jenis']}) as jumlah");
+            if($data['jenis'] != 'keterangan'){
+                $builder->select("{$data['jenis']} , count({$data['jenis']}) as jumlah");
             
+            }else{
+                $col = 'users.'.$data['jenis'];
+                $builder->select("{$col} as keterangan, count({$col}) as jumlah");
+                $builder->join('users', 'users.id =penolakan.users_id');
+            }
+            $builder->where("DATE(tglSurat) BETWEEN '{$data['mulai']}' AND '{$data['selesai']}'");
+            $builder->groupBy($data['jenis']);
+            $query = $builder->get();
+            if(empty($query->getResult())){
+                echo json_encode(array('status' => false, 'ket' => 'Data Tidak Ditemukan'));
+                exit();
+            } 
+            $results = array();
+            foreach($query->getResult() as $row){
+                $results['label'][]= $row->{$data['jenis']};
+                $results['value'][]= $row->jumlah;
+                $results['color'][]= randomColour();
+                //$row->color = randomColour();
+            }
+            echo json_encode(array('status' => true, 'data' => $results, 'type' => $type,'title' => $title));
+            exit();
+        }else{
+            $type='line';
+            $title='Grafik Jumlah Penolakan';
+            $builder->select("{$data['jenis']} , count({$data['jenis']}) as jumlah");
             $builder->where("DATE(tglSurat) BETWEEN '{$data['mulai']}' AND '{$data['selesai']}'");
             $builder->groupBy($data['jenis']);
             $query = $builder->get();
@@ -70,7 +96,6 @@ class Home extends BaseController
             echo json_encode(array('status' => true, 'data' => $results, 'type' => $type,'title' => $title));
             exit();
         }
-        var_dump($data);
-        exit();
+       
     }
 }

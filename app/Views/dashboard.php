@@ -19,10 +19,10 @@
                 <div class="col">
                     <select name="jenis" class="form-control">
                         <option value="">Pilih Jenis Data</option>
-                        <option value="penolakan">Jumlah Penolakan</option>
+                        <option value="tglSurat">Jumlah Penolakan</option>
                         <option value="kewarganegaraan">Kewarganegaraan</option>
                         <option value="gender">Jenis Kelamin</option>
-                        <option value="seksi">Seksi Pemeriksaan</option>
+                        <option value="keterangan">Seksi Pemeriksaan</option>
                     </select>
                 </div>
                 <div class="col input-group">
@@ -43,8 +43,8 @@
             </div>
         </form>
         <div class="row">
-        <div class="mx-auto h-75" id="canvas"></div>
-  
+            <div class="mx-auto h-75" id="canvas"></div>
+
         </div>
 
 
@@ -99,35 +99,95 @@
     function chart(data) {
         $("#myChart").remove();
         $('#canvas').append('<canvas id="myChart"></canvas>');
-       
+
         datasets = data.data;
         let myChart = document.getElementById('myChart').getContext('2d');
-        var WeatherChart = new Chart(myChart, {
-            type: data.type,
-            data: {
+        if (data.type == 'pie') {
+            var pie = new Chart(myChart, {
+                type: data.type,
+                data: {
+                    labels: datasets.label,
+                    datasets: [{
+                        label: '# of Votes',
+                        data: datasets.value,
+                        backgroundColor: datasets.color,
+                        borderColor: datasets.color,
+                        borderWidth: 1
+                    }]
+                },
+
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: data.title
+                        },
+                    }
+                },
+            });
+        }
+        if (data.type == 'line') {
+           
+            var line = new Chart(myChart, {
+                type: data.type,
+                data:  {
                 labels: datasets.label,
                 datasets: [{
-                    label: '# of Votes',
+                    label: data.title,
                     data: datasets.value,
-                    backgroundColor: datasets.color,
-                    borderColor: datasets.color,
-                    borderWidth: 1
+                    fill: true,
+    borderColor: 'rgb(75, 192, 192)',
+                   
                 }]
             },
-
-            options: {
-                responsive: true,
-                plugins: {
+                beginAtZero: true,
+                options: {
+                    responsive: true,
                     legend: {
-                        position: 'top',
+                        display: false
                     },
                     title: {
-                        display: true,
-                        text: data.title
+                        display: false,
+                        text: 'Chart.js bar Chart'
                     },
+                    animation: {
+                        animateScale: true
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                callback: function(value) {
+                                    if (Number.isInteger(value)) {
+                                        return value;
+                                    }
+                                },
+                                stepSize: 1
+                            }
+                        }],
+                        xAxes: [{
+                            type: 'time',
+                            time: {
+                                displayFormats: {
+                                    'day': 'MMM DD',
+                                    'week': 'MMM DD',
+                                    'month': 'MMM DD',
+                                    'quarter': 'MMM DD',
+                                    'year': 'MMM DD',
+                                }
+                            }
+
+                        }],
+                    }
                 }
-            },
-        });
+            });
+            line.canvas.parentNode.style.height = '800px';
+            line.canvas.parentNode.style.width = '800px';
+        }
     }
 </script>
 <?= $this->endSection() ?>
