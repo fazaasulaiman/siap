@@ -46,7 +46,7 @@ class Home extends BaseController
             echo json_encode(array('status' => false, 'ket' => $this->form_validation->getErrors()));
             exit();
         }
-        $data['mulai'] = date("Y-m-d", strtotime($data['mulai']));
+        $data['mulai'] = formatdate($data['mulai']);
         $data['selesai'] = date("Y-m-d", strtotime($data['selesai']));
         if ($data['jenis'] != 'tglSurat') {
             $type='pie';

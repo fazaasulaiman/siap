@@ -131,21 +131,24 @@
             });
         }
         if (data.type == 'line') {
-           
+
             var line = new Chart(myChart, {
                 type: data.type,
-                data:  {
-                labels: datasets.label,
-                datasets: [{
-                    label: data.title,
-                    data: datasets.value,
-                    fill: true,
-    borderColor: 'rgb(75, 192, 192)',
-                   
-                }]
-            },
+                data: {
+                    labels: datasets.label,
+                    datasets: [{
+                        label: data.title,
+                        data: datasets.value,
+                        fill: true,
+                        fill: false,
+                        backgroundColor: 'green',
+                        borderColor: 'green'
+
+                    }]
+                },
                 beginAtZero: true,
                 options: {
+                    tension: 0.4,
                     responsive: true,
                     legend: {
                         display: false
@@ -158,31 +161,37 @@
                         animateScale: true
                     },
                     scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                callback: function(value) {
-                                    if (Number.isInteger(value)) {
-                                        return value;
-                                    }
-                                },
-                                stepSize: 1
-                            }
-                        }],
-                        xAxes: [{
+                        x: {
                             type: 'time',
                             time: {
                                 displayFormats: {
-                                    'day': 'MMM DD',
-                                    'week': 'MMM DD',
-                                    'month': 'MMM DD',
-                                    'quarter': 'MMM DD',
-                                    'year': 'MMM DD',
+                                    quarter: 'MMM YYYY'
                                 }
                             }
-
-                        }],
+                        },
+                        y: {
+                            ticks: {
+                                min: 0,
+                                stepSize: 1
+                            }
+                        }
                     }
+                    // scales: {
+                    //     yAxes: [{
+                    //         ticks: {
+                    //             min: 0,
+                    //             stepSize: 1
+                    //         }
+                    //     }],
+                    //     xAxes: [{
+                    //         time: {
+                    //             unit: 'day',
+                    //             displayFormats: {
+                    //                 day: 'MMM DD'
+                    //             }
+                    //         }
+                    //     }]
+                    // }
                 }
             });
             line.canvas.parentNode.style.height = '800px';

@@ -24,4 +24,8 @@ function randomColour() {
     $color = '#'.$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)].$rand[rand(0,15)];
     return $color;
 }
+function formatdate($date){
+    $Ndate = date("Y-m-d", strtotime(str_replace('/', '-', $date)));
+    return $Ndate;
+}
 ?>

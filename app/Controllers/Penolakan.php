@@ -100,9 +100,9 @@ class Penolakan extends BaseController
             echo json_encode(array('status' => false, 'text' => $this->form_validation->getErrors()));
             exit();
         }
-        $data['tglSurat'] = date("Y-m-d", strtotime($data['tglSurat']));
-        $data['tglKejadian'] = date("Y-m-d", strtotime($data['tglKejadian']));
-        $data['tglLahir'] = date("Y-m-d", strtotime($data['tglLahir']));
+        $data['tglSurat'] = formatdate($data['tglSurat']);
+        $data['tglKejadian'] = formatdate($data['tglKejadian']);
+        $data['tglLahir'] = formatdate($data['tglLahir']);
         $data['users_id'] = $this->session->get('id');
         $penolakan = new PenolakanModel();
         $dokumen->move(ROOTPATH . 'public/upload/dokumen', preg_replace('/\s+/', '_', $data['nama']) . '(' . $data['tglSurat'] . ').' . $dokumen->guessExtension());
@@ -139,8 +139,12 @@ class Penolakan extends BaseController
         $id = $this->request->getVar('id');
         $penolakan = new PenolakanModel();
         if ($penolakan->find($id)) {
+            $dokumen = $penolakan->find($id)->dokumen;
             $penolakan->delete($id);
             echo json_encode(array("status" => TRUE));
+            $path = ROOTPATH . 'public/upload/dokumen/'.$dokumen;
+            chmod($path, 0777);
+            unlink($path);
             exit();
         } else {
             echo json_encode(array("status" => false));
