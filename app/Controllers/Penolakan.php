@@ -105,7 +105,7 @@ class Penolakan extends BaseController
         $data['tglLahir'] = formatdate($data['tglLahir']);
         $data['users_id'] = $this->session->get('id');
         $penolakan = new PenolakanModel();
-        $dokumen->move(ROOTPATH . 'public/upload/dokumen', preg_replace('/\s+/', '_', $data['nama']) . '(' . $data['tglSurat'] . ').' . $dokumen->guessExtension());
+        $dokumen->move(ROOTPATH . 'public/upload/dokumen', preg_replace('/\s+/', '_', $data['nama']) . '(' . $data['tglSurat'] . ').' . $dokumen->guessExtension(),true);
         $data['dokumen'] = $dokumen->getName();
         $penolakan->insert($data);
         echo json_encode(array('status' => true));
@@ -121,7 +121,7 @@ class Penolakan extends BaseController
             exit();
         }
         $penolakan = new PenolakanModel();
-        $bapen->move(ROOTPATH . 'public/upload/bapen', preg_replace('/\s+/', '_', $data['nama']). $bapen->guessExtension());
+        $bapen->move(ROOTPATH . 'public/upload/bapen', preg_replace('/\s+/', '_', $data['nama']).'(ids=' . $data['id'] . ').'.$bapen->guessExtension(),true);
         $data['bapen'] = $bapen->getName();
         $penolakan->update($data['id'],$data);
         echo json_encode(array('status' => true));
