@@ -81,6 +81,7 @@ class Home extends BaseController
             $builder->select("{$data['jenis']} , count({$data['jenis']}) as jumlah");
             $builder->where("DATE(tglSurat) BETWEEN '{$data['mulai']}' AND '{$data['selesai']}'");
             $builder->groupBy($data['jenis']);
+            $builder->orderBy("{$data['jenis']}", "ASC");
             $query = $builder->get();
             if(empty($query->getResult())){
                 echo json_encode(array('status' => false, 'ket' => 'Data Tidak Ditemukan'));
@@ -88,7 +89,7 @@ class Home extends BaseController
             } 
             $results = array();
             foreach($query->getResult() as $row){
-                $results['label'][]= $row->{$data['jenis']};
+                $results['label'][]= tgl_indo($row->{$data['jenis']});
                 $results['value'][]= $row->jumlah;
                 $results['color'][]= randomColour();
                 //$row->color = randomColour();

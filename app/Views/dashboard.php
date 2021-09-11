@@ -44,7 +44,6 @@
         </form>
         <div class="row">
             <div class="mx-auto h-75" id="canvas"></div>
-
         </div>
 
 
@@ -133,7 +132,7 @@
         if (data.type == 'line') {
 
             var line = new Chart(myChart, {
-                type: data.type,
+                type: 'bar',
                 data: {
                     labels: datasets.label,
                     datasets: [{
@@ -148,6 +147,7 @@
                 },
                 beginAtZero: true,
                 options: {
+                    spanGaps: true,
                     tension: 0.4,
                     responsive: true,
                     legend: {
@@ -161,17 +161,11 @@
                         animateScale: true
                     },
                     scales: {
-                        x: {
-                            type: 'time',
-                            time: {
-                                displayFormats: {
-                                    quarter: 'MMM YYYY'
-                                }
-                            }
-                        },
+                       
                         y: {
+                            suggestedMax:Math.max.apply(this, datasets.value) + 2,
                             ticks: {
-                                min: 0,
+                               
                                 stepSize: 1
                             }
                         }
