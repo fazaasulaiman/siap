@@ -26,7 +26,14 @@ class Register extends BaseController
             ->select('id,username, keterangan')
             ->where(['level' => 'seksi'])
             ->addColumn('aksi', function ($query) {
-                return '<div class="btn-group"><a class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown" href="#"><i class="fa fa-cog"></i> <span class="caret"></span></a><ul role="menu" class="dropdown-menu pull-right"><li role="presentation"><a role="menuitem" tabindex="-1"  onclick="edit(' . "'" . $query->id . "'" . ',' . "'" . $query->username . "'" . ')"  data-toggle="modal" href="#edit" title="Ubah"><i class="fa fa-edit"></i> Ubah</a></li><li role="presentation"><a role="menuitem" data-toggle="modal" tabindex="-1"  onclick="hapus(' . "'" . $query->id . "'" . ',' . "'" . $query->username . "'" . ')" title="Hapus"><i class="fa fa-times"></i> Hapus</a></li></ul></div>';
+                return '<div class="btn-group dropleft">
+                        <button type="button" class="btn btn-secondary fa fa-cog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button" onclick="edit(' . "'" . $query->id . "'" . ',' . "'" . $query->username . "'" . ')">Edit</button>
+                        <button class="dropdown-item" type="button" onclick="hapus(' . "'" . $query->id . "'" . ',' . "'" . $query->username . "'" . ')">Hapus</button>
+                        </div>
+                    </div>';
             })
             ->hideColumns(['id'])
             ->rawColumns(['aksi'])
@@ -38,7 +45,14 @@ class Register extends BaseController
             ->select('id,username, keterangan')
             ->where(['level' => 'lainnya'])
             ->addColumn('aksi', function ($query) {
-                return '<div class="btn-group"><a class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown" href="#"><i class="fa fa-cog"></i> <span class="caret"></span></a><ul role="menu" class="dropdown-menu pull-right"><li role="presentation"><a role="menuitem" tabindex="-1"  onclick="edit(' . "'" . $query->id . "'" . ',' . "'" . $query->username . "'" . ')"  data-toggle="modal" href="#edit" title="Ubah"><i class="fa fa-edit"></i> Ubah</a></li><li role="presentation"><a role="menuitem" data-toggle="modal" tabindex="-1"  onclick="hapus(' . "'" . $query->id . "'" . ',' . "'" . $query->username . "'" . ')" title="Hapus"><i class="fa fa-times"></i> Hapus</a></li></ul></div>';
+                return '<div class="btn-group dropleft">
+                        <button type="button" class="btn btn-secondary fa fa-cog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button" onclick="edit(' . "'" . $query->id . "'" . ',' . "'" . $query->username . "'" . ')">Edit</button>
+                        <button class="dropdown-item" type="button" onclick="hapus(' . "'" . $query->id . "'" . ',' . "'" . $query->username . "'" . ')">Hapus</button>
+                        </div>
+                    </div>';
             })
             ->hideColumns(['id'])
             ->rawColumns(['aksi'])

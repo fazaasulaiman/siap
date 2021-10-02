@@ -55,14 +55,22 @@ class Penolakan extends BaseController
         if($this->session->get('level') != 'lainnya'){
             $dataTable->addColumn('aksi', function ($query) {
                 if ($this->session->get('level') == 'admin') {
-                    $html = '<div class="btn-group"><a class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown" href="#"><i class="fa fa-cog"></i> <span class="caret"></span></a><ul role="menu" class="dropdown-menu pull-right">';
-                    $html .= '<li role="presentation"><a role="menuitem" tabindex="-1"  onclick="upload(' . "'" . $query->id . "'" . ',' . "'" . $query->nama . "'" . ')"  data-toggle="modal" href="#edit" title="upload"><i class="fa fa-cloud-upload"></i>Bapen TAK</a></li>';
-                    $html .= '<li role="presentation"><a role="menuitem" data-toggle="modal" tabindex="-1"  onclick="hapus(' . "'" . $query->id . "'" . ',' . "'" . $query->nama . "'" . ')" title="Hapus"><i class="fa fa-times"></i> Hapus</a></li>';
-                    $html .= '</ul></div>';
+                    $html = '<div class="btn-group dropleft">
+                        <button type="button" class="btn btn-secondary fa fa-cog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button" onclick="upload(' . "'" . $query->id . "'" . ',' . "'" . $query->nama . "'" . ')">Upload</button>
+                        <button class="dropdown-item" type="button" onclick="hapus(' . "'" . $query->id . "'" . ',' . "'" . $query->nama . "'" . ')">Hapus</button>
+                        </div>
+                    </div>';
                 }elseif ($this->session->get('level') == 'seksi' && $this->session->get('username') == $query->username) {
-                    $html = '<div class="btn-group"><a class="btn btn-light dropdown-toggle btn-sm" data-toggle="dropdown" href="#"><i class="fa fa-cog"></i> <span class="caret"></span></a><ul role="menu" class="dropdown-menu pull-right">';
-                    $html .= '<li role="presentation"><a role="menuitem" data-toggle="modal" tabindex="-1"  onclick="hapus(' . "'" . $query->id . "'" . ',' . "'" . $query->nama . "'" . ')" title="Hapus"><i class="fa fa-times"></i> Hapus</a></li>';
-                    $html .= '</ul></div>';
+                    $html = '<div class="btn-group dropleft">
+                        <button type="button" class="btn btn-secondary fa fa-cog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu">
+                        <button class="dropdown-item" type="button" onclick="hapus(' . "'" . $query->id . "'" . ',' . "'" . $query->nama . "'" . ')">Hapus</button>
+                        </div>
+                    </div>';
                 }else{
                     $html = '&nbsp;';
                 }
