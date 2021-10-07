@@ -4,6 +4,8 @@ namespace App\Validation;
 
 use App\Models\UsersModel;
 use App\Models\PenolakanModel;
+use App\Models\WaskatModel;
+use App\Models\PenundaanModel;
 
 class CustomRules
 {
@@ -65,6 +67,28 @@ class CustomRules
         ])->first();
         //session()->get('id')
         if( session()->get('id') == $dataPenolakan->users_id){
+            return true;
+        }
+        return false;
+    }
+    public function isYourDataWaskat(string $str, string $fields, array $data)
+    {
+        $waskat = new WaskatModel();
+        $data = $waskat->where([
+            'id' => $data['id'],
+        ])->first();
+        if( session()->get('id') == $data->users_id){
+            return true;
+        }
+        return false;
+    }
+    public function isYourDataPenundaan(string $str, string $fields, array $data)
+    {
+        $penundaan = new PenundaanModel();
+        $data = $penundaan->where([
+            'id' => $data['id'],
+        ])->first();
+        if( session()->get('id') == $data->users_id){
             return true;
         }
         return false;

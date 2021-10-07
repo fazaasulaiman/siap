@@ -37,17 +37,27 @@ class Home extends BaseController
         session()->destroy();
         return redirect()->to('/login');
     }
+    public function stat(){
+        $penolakan =  $this->db->table('penolakan');
+        $penolakan = $penolakan->countAllResults();
+        $waskat =  $this->db->table('waskat');
+        $waskat = $waskat->countAllResults();
+        $penundaan =  $this->db->table('penundaan');
+        $penundaan = $penundaan->countAllResults();
+        echo json_encode(array('status' => true, 'data' => array('penolakan' => $penolakan,'waskat'=>$waskat,'penundaan'=>$penundaan) ));
+        exit();
+    }
     public function grafik()
     {
         $data = $this->request->getGet();
-        $builder =  $this->db->table('penolakan');
+        $builder =  $this->db->table($data['arsip']);
         if (!$this->form_validation->run($data, 'grafik')) {
 
             echo json_encode(array('status' => false, 'ket' => $this->form_validation->getErrors()));
             exit();
         }
         $data['mulai'] = formatdate($data['mulai']);
-        $data['selesai'] = date("Y-m-d", strtotime($data['selesai']));
+        $data['selesai'] = formatdate($data['selesai']);
         if ($data['jenis'] != 'tglSurat') {
             $type='pie';
             $title='grafik '.$data['jenis'];

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="author" content="Kodinger">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>My Login Page</title>
+	<title>Login SIAP</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/build/css/login.css">
 </head>
@@ -43,12 +43,12 @@
 
 									</div>
 								</div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<div class="custom-checkbox custom-control">
 										<input type="checkbox" name="remember" id="remember" class="custom-control-input">
 										<label for="remember" class="custom-control-label">Remember Me</label>
 									</div>
-								</div>
+								</div> -->
 								</form>
 								<div class="form-group m-0">
 									<button type="submit" id="validate" class="btn btn-primary btn-block">

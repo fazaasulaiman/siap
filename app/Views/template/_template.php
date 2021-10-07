@@ -86,8 +86,7 @@
               <ul class="nav side-menu">
                 <li><a href="<?php echo base_url('/home'); ?>"><i class="fa fa-line-chart" aria-hidden="true"></i>
                     Dashboard</a></li>
-
-                <li><a><i class="fa fa-user"></i> Penolakan <span class="fa fa-chevron-down"></span></a>
+                <li><a><i class="fa fa-user-times"></i> Penolakan <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <?php
                     if (session('level') == 'seksi') {
@@ -95,6 +94,26 @@
                     <li><a href="<?php echo base_url('/penolakan/input'); ?>">Input</a></li>
                     <?php } ?>
                     <li><a href="<?php echo base_url('/penolakan/arsip'); ?>">Arsip</a></li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-user-secret"></i> Waskat <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <?php
+                    if (session('level') == 'seksi') {
+                    ?>
+                    <li><a href="<?php echo base_url('/waskat/input'); ?>">Input</a></li>
+                    <?php } ?>
+                    <li><a href="<?php echo base_url('/waskat/arsip'); ?>">Arsip</a></li>
+                  </ul>
+                </li>
+                <li><a><i class="fa fa-exclamation-triangle"></i> Penundaan <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                    <?php
+                    if (session('level') == 'seksi') {
+                    ?>
+                    <li><a href="<?php echo base_url('/penundaan/input'); ?>">Input</a></li>
+                    <?php } ?>
+                    <li><a href="<?php echo base_url('/penundaan/arsip'); ?>">Arsip</a></li>
                   </ul>
                 </li>
                 <?php
